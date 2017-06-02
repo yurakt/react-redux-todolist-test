@@ -12,6 +12,13 @@ import App from 'App'
 // chunking assets. Check out the following for more:
 // https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6
 
+//TODO combine functions
+const Lists = (nextState, cb) => {
+  System.import('App/screens/Lists')
+    .then(module => cb(null, module.default))
+    .catch((e) => { throw e })
+}
+
 const Todos = (nextState, cb) => {
   System.import('App/screens/Todos')
     .then(module => cb(null, module.default))
@@ -22,7 +29,8 @@ const Todos = (nextState, cb) => {
 // https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md
 const routes = (
   <Route path='/' component={App}>
-    <IndexRoute getComponent={Todos} />
+    <IndexRoute getComponent={Lists} />
+    <Route path='/:listID/' getComponent={Todos} />
   </Route>
 )
 
@@ -30,6 +38,7 @@ const routes = (
 // routes so we need to require them here as a workaround.
 // https://github.com/gaearon/react-hot-loader/issues/288
 if (module.hot) {
+  require('App/screens/Lists')
   require('App/screens/Todos')
 }
 

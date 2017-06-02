@@ -2,16 +2,16 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from 'App/stores/resources/actions'
-import { getEntities } from 'App/stores/resources'
+import { getChildEntities } from 'App/stores/resources'
 
 import AddTodo from './components/AddTodo'
 import TodoList from './components/TodoList'
 
-const Todos = ({ todos, addTodo, toggleTodo }) => {
+const Todos = ({ todos, addTodo, toggleTodo, params }) => {
   return (
     <section className='pa3 pa5-ns'>
       <AddTodo onSubmit={({todo}, _, {reset}) => {
-        addTodo(todo)
+        addTodo(todo, params.listID)
         reset()
       }} />
 
@@ -23,15 +23,19 @@ const Todos = ({ todos, addTodo, toggleTodo }) => {
 }
 
 Todos.propTypes = {
-  todos: PropTypes.array
+  todos: PropTypes.array,
+  params: React.PropTypes.shape({
+    listID: PropTypes.string.isRequired
+  })
 }
 
 export default connect(
-  state => ({
-    todos: getEntities('todos')(state)
+  (state, ownProps) => ({
+    todos: getChildEntities('todos', 'lists', ownProps.params.listID)(state)
   }),
   dispatch => ({
-    addTodo: (text) => dispatch(actions.submitEntity({ text }, {type: 'todos'})),
+    addTodo: (text, listID) => dispatch(actions.submitEntity({ text, listID },
+      { type: 'todos', parentType: 'lists', parentId: listID })),
     toggleTodo: (todo, completed) => dispatch(actions.updateEntity({ ...todo, completed }, {type: 'todos'}))
   })
 )(Todos)
