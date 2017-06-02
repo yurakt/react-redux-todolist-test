@@ -2,11 +2,7 @@ import React, { PropTypes } from 'react'
 
 import Todo from '../Todo'
 
-const sortByDate = (arr) => arr.sort((a, b) => {
-  // Turn your strings into dates, and then subtract them
-  // to get a value that is either negative, positive, or zero.
-  return new Date(b.createdAt) - new Date(a.createdAt)
-})
+import sortByDate from 'App/utils/sortByDate'
 
 const TodoList = ({ todos, toggleTodo }) => {
   const sortedTodos = todos && todos[0] ? sortByDate(todos) : null
