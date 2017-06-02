@@ -14,6 +14,7 @@ const ListList = ({ lists }) => {
           <List
             key={i}
             {...list}
+            isLast={(lists.length - 1) === i}
           />
         )
         : <p className='ph3 pv3 tc'>No lists found</p>

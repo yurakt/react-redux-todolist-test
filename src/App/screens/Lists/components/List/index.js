@@ -1,14 +1,21 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const List = ({ name, id }) => {
-  const classes = 'ph3 pv3 pointer bg-animate hover-bg-light-gray'
+import classNames from 'classnames'
+
+const List = ({ name, id, isLast }) => {
+  const listClass = classNames(
+    'ph3 pv3 pointer bg-animate hover-bg-light-gray',
+    {
+      'bb b--light-silver': !isLast
+    }
+  )
   const to = `/${id}/`
 
   return (
-    <li className={classes}>
-      <Link to={to}>{name}</Link>
-    </li>
+      <Link to={to}>
+        <div className={listClass}>{name}</div>
+      </Link>
   )
 }
 
