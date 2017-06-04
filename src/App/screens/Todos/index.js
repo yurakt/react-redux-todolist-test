@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 import * as actions from 'App/stores/resources/actions'
 import { getChildEntities } from 'App/stores/resources'
@@ -12,7 +13,12 @@ import { modes as visibilityModes } from 'App/utils/filterVisibility'
 
 const Todos = ({ todos, addTodo, toggleTodo, params }) => {
   return (
-    <section className='pa3 pa5-ns'>
+    <section className='pa3 pa5-ns mw8 center'>
+      <Link to='/'>
+        <div className='fl ph3 pv3 pointer bg-animate hover-bg-light-gray'>
+          Back to lists
+        </div>
+      </Link>
       <AddTodo onSubmit={({todo}, _, {reset}) => {
         addTodo(todo, params.listID)
         reset()

@@ -11,7 +11,7 @@ const TodoList = ({ todos, toggleTodo, visibilityMode }) => {
 
   return (
     <ul className='list pl0 ml0 center mw6 ba b--light-silver br2'>
-      {sortedTodos
+      {sortedTodos && sortedTodos.length > 0
         ? sortedTodos
             .map((todo, i) =>
             <Todo
