@@ -30,7 +30,7 @@ const Todos = (nextState, cb) => {
 const routes = (
   <Route path='/' component={App}>
     <IndexRoute getComponent={Lists} />
-    <Route path='/:listID/' getComponent={Todos} />
+    <Route path='/:listID(/:visibilityMode)' getComponent={Todos} />
   </Route>
 )
 

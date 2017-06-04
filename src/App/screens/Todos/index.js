@@ -6,6 +6,9 @@ import { getChildEntities } from 'App/stores/resources'
 
 import AddTodo from './components/AddTodo'
 import TodoList from './components/TodoList'
+import VisibilityFilter from './components/VisibilityFilter'
+
+import { modes as visibilityModes } from 'App/utils/filterVisibility'
 
 const Todos = ({ todos, addTodo, toggleTodo, params }) => {
   return (
@@ -15,9 +18,10 @@ const Todos = ({ todos, addTodo, toggleTodo, params }) => {
         reset()
       }} />
 
-      <h1 className='f4 bold center mw6'>All Todos</h1>
+      {/*<VisibilityFilter params={params.listID} mode={params.visibilityMode} />*/}
+      <VisibilityFilter {...params} />
 
-      <TodoList {...{ todos, toggleTodo }} />
+      <TodoList {...{ todos, toggleTodo, ...params }} />
     </section>
   )
 }
@@ -25,7 +29,8 @@ const Todos = ({ todos, addTodo, toggleTodo, params }) => {
 Todos.propTypes = {
   todos: PropTypes.array,
   params: React.PropTypes.shape({
-    listID: PropTypes.string.isRequired
+    listID: PropTypes.string.isRequired,
+    visibilityMode: PropTypes.oneOf(visibilityModes)
   })
 }
 

@@ -14,7 +14,7 @@ const List = ({ name, id, isLast }) => {
 
   return (
       <Link to={to}>
-        <div className={listClass}>{name}</div>
+        <li className={listClass}>{name}</li>
       </Link>
   )
 }
